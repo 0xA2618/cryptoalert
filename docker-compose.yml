@@ -1,0 +1,12 @@
+services:
+  cryptoalert:
+    build: .
+    container_name: cryptoalert
+    restart: always
+    volumes:
+      - ./config:/app/config
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

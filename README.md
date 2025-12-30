@@ -48,11 +48,34 @@ CryptoAlert is a powerful cryptocurrency price monitoring and alerting tool buil
    go run main/main.go
    ```
 
+## Run with Docker
+
+The easiest way to run CryptoAlert is using Docker and Docker Compose. This ensures a consistent environment and simplifies dependency management.
+
+1. **Prepare your configuration**:
+   Ensure your `config/config.json` is set up correctly on your host machine.
+
+2. **Build and start the container**:
+   ```bash
+   docker-compose up -d --build
+   ```
+
+3. **Check the logs**:
+   ```bash
+   docker-compose logs -f
+   ```
+
+4. **Stop the application**:
+   ```bash
+   docker-compose down
+   ```
+
 ## Requirements
 
-- Go 1.25.4 or higher.
+- Go 1.25.4 or higher (if running locally).
+- Docker and Docker Compose (if running via Docker).
 - A Telegram Bot token and Chat ID.
-- Access to Binance Futures API (no API key required for public data).
+- Access to Binance Futures API.
 
 ## License
 
