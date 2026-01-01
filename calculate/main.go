@@ -84,10 +84,30 @@ func Start(ctx context.Context, cycle string) {
 
 // ticker
 func MacdTicker(ctx context.Context, cycle string) {
-	ticker := time.NewTicker(CycleDurationFmt(cycle))
-	defer ticker.Stop()
+	duration := CycleDurationFmt(cycle)
 
-	Start(ctx, cycle)
+	// 计算距离下一次整点的时间
+	now := time.Now()
+	nextTick := now.Truncate(duration).Add(duration)
+	waitTime := nextTick.Sub(now)
+
+	fmt.Printf("[%s] 任务将在 %s (等待 %v) 后开始\n", cycle, nextTick.Format("15:04:05"), waitTime)
+
+	// 等待第一次执行
+	timer := time.NewTimer(waitTime)
+	select {
+	case <-ctx.Done():
+		timer.Stop()
+		fmt.Printf("周期任务 %s 收到退出信号\n", cycle)
+		return
+	case <-timer.C:
+		fmt.Printf("周期性任务: %s 首次执行中...\n", cycle)
+		go Start(ctx, cycle)
+	}
+
+	// 启动周期性 Ticker
+	ticker := time.NewTicker(duration)
+	defer ticker.Stop()
 
 	for {
 		select {
