@@ -67,7 +67,7 @@ func Start(ctx context.Context, cycle string) {
 
 		// 3根K线变化
 		reversal := detectReversal(klines, histogram)
-		if reversal != "" && Msg == "" {
+		if reversal != "" && Msg == "" && config.Cfg.Benchmark.Detect == "true" {
 			symbolInfo.Shape = reversal
 			symbolInfo.CrossTime = time.Now()
 			symbolInfo.Rsi = rsiValue

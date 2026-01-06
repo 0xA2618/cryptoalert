@@ -25,9 +25,10 @@ type CycleThreshold struct {
 }
 
 type Benchmark struct {
-	Macd   Macd `json:"Macd"`
-	Rsi    Rsi  `json:"Rsi"`
-	Klines int  `json:"Klines"`
+	Macd   Macd   `json:"Macd"`
+	Rsi    Rsi    `json:"Rsi"`
+	Klines int    `json:"Klines"`
+	Detect string `json:"Detect"`
 }
 
 type Macd struct {
